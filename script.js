@@ -5,6 +5,8 @@
 // =====================================================
 // BALANCE & SUMMARY
 // =====================================================
+const adminPassword = "au1234@1";
+
 let loanBalance =
     Number(localStorage.getItem("loanBalance")) || 0;
 let currentUser = localStorage.getItem("loggedInUser");
@@ -2048,7 +2050,7 @@ function openAdmin() {
         return;
     }
 
-    if (password !== "admin123") {
+  if (password !== adminPassword) {
         alert("Wrong Admin Password!");
         return;
     }
