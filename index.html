@@ -76,6 +76,23 @@
 
 <div id="dashboard">
 <section id="adminPanel" style="display:none;">
+    <p>
+    Total Users:
+    <strong id="adminUsers">0</strong>
+</p>
+
+<p>
+    Total Transactions:
+    <strong id="adminTransactions">0</strong>
+    let users =
+    JSON.parse(localStorage.getItem("users")) || [];
+
+document.getElementById("adminUsers").innerText =
+    users.length;
+
+document.getElementById("adminTransactions").innerText =
+    transactionHistory.length;
+</p>
 
     <div class="card">
 
@@ -862,6 +879,14 @@
     </p>
 
 </div>
+    let users =
+    JSON.parse(localStorage.getItem("users")) || [];
+
+document.getElementById("adminUsers").innerText =
+    users.length;
+
+document.getElementById("adminTransactions").innerText =
+    transactionHistory.length;
 </body>
 </html> 
 
