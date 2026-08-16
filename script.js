@@ -2042,6 +2042,17 @@ if (maturity) {
 }
 function openAdmin() {
 
+    let password = prompt("Enter Admin Password");
+
+    if (password === null) {
+        return;
+    }
+
+    if (password !== "admin123") {
+        alert("Wrong Admin Password!");
+        return;
+    }
+
     document.getElementById("adminPanel").style.display = "block";
 
     document.getElementById("adminBalance").innerText =
@@ -2055,8 +2066,8 @@ function openAdmin() {
 
     document.getElementById("adminTransfer").innerText =
         "₹" + totalTransfer.toFixed(2);
-}
 
+}
 function closeAdmin() {
 
     document.getElementById("adminPanel").style.display = "none";
