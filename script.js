@@ -2075,3 +2075,20 @@ function closeAdmin() {
     document.getElementById("adminPanel").style.display = "none";
 
 }
+function clearAllTransactions() {
+
+    if (!confirm("Clear all transactions?")) {
+        return;
+    }
+
+    transactionHistory = [];
+
+    localStorage.setItem(
+        "transactionHistory",
+        JSON.stringify(transactionHistory)
+    );
+
+    displayHistory();
+
+    alert("All transactions cleared successfully!");
+}
