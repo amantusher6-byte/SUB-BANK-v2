@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SUB Bank</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- ================= LOGIN PAGE ================= -->
+
+<div id="loginPage" class="login-box">
+
+    <h2>🔐 SUB Bank Login</h2>
+
+    <input
+        type="text"
+        id="username"
+        placeholder="Username"
+    >
+
+    <input
+        type="password"
+        id="password"
+        placeholder="Password"
+    >
+
+    <button onclick="login()">
+        🔐 Login
+    </button>
+
+</div>
+
+
+<!-- ================= DASHBOARD ================= -->
+
+<div id="dashboard" style="display:none;">
+
+    <!-- ================= ADMIN PANEL ================= -->
+
+    <section id="adminPanel" style="display:none;">
+
+        <div class="card">
+
+            <h2>👨‍💼 Admin Panel</h2>
+
+            <p>
+                Total Balance:
+                <strong id="adminBalance">₹0</strong>
+            </p>
+
+            <p>
+                Total Deposit:
+                <strong id="adminDeposit">₹0</strong>
+            </p>
+
+            <p>
+                Total Withdraw:
+                <strong id="adminWithdraw">₹0</strong>
+            </p>
+
+            <p>
+                Total Transfer:
+                <strong id="adminTransfer">₹0</strong>
+            </p>
+
+            <button onclick="closeAdmin()">
+                Close Admin Panel
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <div class="sidebar" id="sidebar">
+
+        <div class="sidebar-logo">
+            🏦
+            <span>SUB Bank</span>
+        </div>
+
+        <button
+            class="side-btn active"
+            onclick="showSection('home')">
+            🏠 Dashboard
+        </button>
+
+        <button
+            class="side-btn"
+            onclick="showSection('profile')">
+            👤 Profile
+        </button>
+
+        <button
+            class="side-btn"
+            onclick="showSection('transactions')">
+            📜 Transactions
+        </button>
+
+        <button
+            class="side-btn"
+            onclick="showSection('security')">
+            🔐 Security
+        </button>
+
+        <button
+            class="side-btn logout-side"
+            onclick="logout()">
+            🚪 Logout
+        </button>
+
+        <button onclick="openAdmin()">
+            👨‍💼 Admin
+        </button>
+
+    </div>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <div class="navbar">
+
+        <button
+            class="menu-btn"
+            onclick="toggleSidebar()">
+            ☰
+        </button>
+
+        <h2>🏦 SUB Bank</h2>
+
+        <div>
+
+            <button
+                class="notification-btn"
+                onclick="toggleNotifications()">
+
+                🔔
+
+                <span id="notificationCount">
+                    0
+                </span>
+
+            </button>
+
+            <button
+                id="darkModeBtn"
+                onclick="toggleDarkMode()">
+                🌙 Dark Mode
+            </button>
+
+            <button onclick="logout()">
+                Logout
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= MAIN CONTAINER ================= -->
+
+    <div class="container">
+
+
+        <!-- ================= HOME ================= -->
+
+        <section id="home">
+
+            <h1 id="welcomeText">
+                Welcome Aman Upadhyay
+            </h1>
+
+            <p id="greetingText"></p>
+
+            <p>
+                Welcome to your SUB Bank Dashboard.
+            </p>
+
+
+            <!-- ================= STATS ================= -->
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <h4>💰 Balance</h4>
+                    <p id="statBalance">₹0</p>
+                </div>
+
+                <div class="stat-card">
+                    <h4>📥 Deposit</h4>
+                    <p id="statDeposit">₹0</p>
+                </div>
+
+                <div class="stat-card">
+                    <h4>📤 Withdraw</h4>
+                    <p id="statWithdraw">₹0</p>
+                </div>
+
+                <div class="stat-card">
+                    <h4>🔄 Transfer</h4>
+                    <p id="statTransfer">₹0</p>
+                </div>
+
+            </div>
+
+
+            <!-- ================= CUSTOMER DETAILS ================= -->
+
+            <div class="profile-info-card">
+
+                <h3>👤 Customer Details</h3>
+
+                <p>
+                    <strong>Name:</strong>
+                    <span id="profileName"></span>
+                </p>
+
+                <p>
+                    <strong>Account Type:</strong>
+                    Savings Account
+                </p>
+
+                <p>
+                    <strong>Status:</strong>
+                    🟢 Active
+                </p>
+
+                <p id="todayDate"></p>
+
+            </div>
+
+
+            <!-- ================= QUICK ACTIONS ================= -->
+
+            <div class="quick-actions">
+
+                <button
+                    class="quick-btn deposit-action"
+                    onclick="focusInput('depositAmount')">
+
+                    💰
+                    <span>Deposit</span>
+
+                </button>
+
+
+                <button
+                    class="quick-btn withdraw-action"
+                    onclick="focusInput('withdrawAmount')">
+
+                    💸
+                    <span>Withdraw</span>
+
+                </button>
+
+
+                <button
+                    class="quick-btn transfer-action"
+                    onclick="focusInput('transferAmount')">
+
+                    🔄
+                    <span>Transfer</span>
+
+                </button>
+
+            </div>
+
+
+            <!-- ================= ATM CARD ================= -->
+
+            <div class="atm-card">
+
+                <div class="atm-top">
+
+                    <h3>
+                        🏦 SUB Bank
+                    </h3>
+
+                    <span>
+                        VISA
+                    </span>
+
+                </div>
+
+
+                <div class="card-chip">
+                    ▰
+                </div>
+
+
+                <h2 class="card-number">
+                    **** **** **** 1234
+                </h2>
+
+
+                <p class="card-type">
+                    DEBIT CARD
+                </p>
+
+
+                <div class="card-bottom">
+
+                    <div>
+
+                        <small>
+                            CARD HOLDER
+                        </small>
+
+                        <strong>
+                            Aman Upadhyay
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <small>
+                            VALID THRU
+                        </small>
+
+                        <strong>
+                            12/30
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= FIXED DEPOSIT ================= -->
+
+            <div class="card">
+
+                <h3>
+                    🏦 Fixed Deposit
+                </h3>
+
+                <input
+                    type="number"
+                    id="fdAmount"
+                    placeholder="Enter FD Amount">
+
+                <p>
+                    Interest (7%):
+                    <strong id="fdInterest">₹0</strong>
+                </p>
+
+                <p>
+                    Maturity Amount:
+                    <strong id="fdMaturity">₹0</strong>
+                </p>
+
+                <button onclick="createFD()">
+                    Create FD
+                </button>
+
+                <p>
+                    Total FD:
+                    <strong id="fdBalance">₹0</strong>
+                </p>
+
+            </div>
+
+
+            <!-- ================= BALANCE ================= -->
+
+            <div class="card">
+
+                <h2>
+                    Current Balance
+                </h2>
+
+                <h1 id="balance">
+                    ₹1000
+                </h1>
+
+                <div class="balance-progress">
+                    <div
+                        id="balanceBar"
+                        class="balance-fill">
+                    </div>
+                </div>
+
+                <p id="dateTime"></p>
+
+
+                <!-- DEPOSIT -->
+
+                <input
+                    type="number"
+                    id="depositAmount"
+                    placeholder="Enter Deposit Amount">
+
+                <button
+                    class="deposit-btn"
+                    onclick="deposit()">
+                    Deposit
+                </button>
+
+
+                <!-- WITHDRAW -->
+
+                <input
+                    type="number"
+                    id="withdrawAmount"
+                    placeholder="Enter Withdraw Amount">
+
+                <button
+                    class="withdraw-btn"
+                    onclick="withdraw()">
+                    Withdraw
+                </button>
+
+
+                <!-- RESET -->
+
+                <button
+                    class="reset-btn"
+                    onclick="resetBalance()">
+                    Reset
+                </button>
+
+
+                <!-- TRANSFER -->
+
+                <h3>
+                    🔄 Transfer Money
+                </h3>
+
+                <input
+                    type="text"
+                    id="accountNumber"
+                    placeholder="Enter Account Number">
+
+                <input
+                    type="number"
+                    id="transferAmount"
+                    placeholder="Enter Amount">
+
+                <button
+                    class="transfer-btn"
+                    onclick="transferMoney()">
+                    Transfer
+                </button>
+
+
+                <!-- REQUEST MONEY -->
+
+                <h3>
+                    💰 Request Money
+                </h3>
+
+                <input
+                    type="text"
+                    id="requestAccount"
+                    placeholder="Enter Account Number">
+
+                <input
+                    type="number"
+                    id="requestAmount"
+                    placeholder="Enter Amount">
+
+                <button onclick="requestMoney()">
+                    📩 Request Money
+                </button>
+
+            </div>
+
+
+            <!-- ================= SUMMARY ================= -->
+
+            <div class="summary">
+
+                <h2>
+                    📊 Account Summary
+                </h2>
+
+                <div class="summary-grid">
+
+                    <div class="summary-item">
+
+                        <span>💰</span>
+
+                        <div>
+
+                            <small>
+                                Total Deposit
+                            </small>
+
+                            <strong id="totalDeposit">
+                                ₹0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="summary-item">
+
+                        <span>💸</span>
+
+                        <div>
+
+                            <small>
+                                Total Withdraw
+                            </small>
+
+                            <strong id="totalWithdraw">
+                                ₹0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="summary-item">
+
+                        <span>🔄</span>
+
+                        <div>
+
+                            <small>
+                                Total Transfer
+                            </small>
+
+                            <strong id="totalTransfer">
+                                ₹0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= PROFILE ================= -->
+
+        <section
+            id="profile"
+            style="display:none;">
+
+            <div class="profile-card">
+
+                <div class="profile-header">
+
+                    <div class="profile-avatar">
+                        👤
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Aman Upadhyay
+                        </h2>
+
+                        <p>
+                            SUB Bank Customer
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="profile-details">
+
+                    <div>
+                        <small>
+                            ACCOUNT NUMBER
+                        </small>
+
+                        <strong>
+                            SUB10001234
+                        </strong>
+                    </div>
+
+
+                    <div>
+                        <small>
+                            ACCOUNT TYPE
+                        </small>
+
+                        <strong>
+                            Savings Account
+                        </strong>
+                    </div>
+
+
+                    <div>
+                        <small>
+                            BRANCH
+                        </small>
+
+                        <strong>
+                            SUB Main Branch
+                        </strong>
+                    </div>
+
+
+                    <div>
+                        <small>
+                            STATUS
+                        </small>
+
+                        <strong class="active-status">
+                            ● Active
+                        </strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= TRANSACTIONS ================= -->
+
+        <section
+            id="transactions"
+            style="display:none;">
+
+            <div class="history">
+
+                <div class="history-header">
+
+                    <h2>
+                        📜 Transaction History
+                    </h2>
+
+                    <button
+                        class="clear-history-btn"
+                        onclick="clearHistory()">
+                        🗑️ Clear History
+                    </button>
+
+                </div>
+
+
+                <input
+                    type="text"
+                    id="searchTransaction"
+                    placeholder="Search Transaction..."
+                    onkeyup="searchHistory()">
+
+
+                <ul id="history"></ul>
+
+
+                <div class="mini-statement">
+
+                    <h2>
+                        📄 Mini Statement
+                    </h2>
+
+                    <ul id="miniHistory"></ul>
+
+                </div>
+
+
+                <div class="statement">
+
+                    <h2>
+                        🏦 SUB Bank Statement
+                    </h2>
+
+                    <p>
+                        <strong>Account Holder:</strong>
+                        <span id="statementName">
+                            Aman Upadhyay
+                        </span>
+                    </p>
+
+                    <p>
+                        <strong>Account Number:</strong>
+                        <span id="statementAccount">
+                            SUB10001234
+                        </span>
+                    </p>
+
+                    <p>
+                        <strong>Current Balance:</strong>
+                        <span id="statementBalance"></span>
+                    </p>
+
+                    <p>
+                        <strong>Total Deposit:</strong>
+                        <span id="statementDeposit"></span>
+                    </p>
+
+                    <p>
+                        <strong>Total Withdraw:</strong>
+                        <span id="statementWithdraw"></span>
+                    </p>
+
+                    <p>
+                        <strong>Total Transfer:</strong>
+                        <span id="statementTransfer"></span>
+                    </p>
+
+                    <button onclick="printStatement()">
+                        🖨️ Print Statement
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= SECURITY ================= -->
+
+        <section
+            id="security"
+            style="display:none;">
+
+            <div class="security-card">
+
+                <h2>
+                    🔐 Security
+                </h2>
+
+                <p>
+                    Manage your banking password
+                </p>
+
+
+                <label>
+                    Current Password
+                </label>
+
+                <div class="password-box">
+
+                    <input
+                        type="password"
+                        id="currentPassword"
+                        placeholder="Enter current password">
+
+                    <button
+                        type="button"
+                        onclick="togglePassword('currentPassword')">
+                        👁️
+                    </button>
+
+                </div>
+
+
+                <label>
+                    New Password
+                </label>
+
+                <div class="password-box">
+
+                    <input
+                        type="password"
+                        id="newPassword"
+                        placeholder="Enter new password">
+
+                    <button
+                        type="button"
+                        onclick="togglePassword('newPassword')">
+                        👁️
+                    </button>
+
+                </div>
+
+
+                <label>
+                    Confirm New Password
+                </label>
+
+                <div class="password-box">
+
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        placeholder="Confirm new password">
+
+                    <button
+                        type="button"
+                        onclick="togglePassword('confirmPassword')">
+                        👁️
+                    </button>
+
+                </div>
+
+
+                <button
+                    class="change-password-btn"
+                    onclick="changePassword()">
+
+                    🔒 Change Password
+
+                </button>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</div>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script src="script.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+</body>
+
+</html>
