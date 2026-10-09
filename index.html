@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SUB Bank | Demo Banking System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="authView" class="auth-shell">
+    <section class="auth-brand">
+      <div class="brand-logo">S</div>
+      <p class="eyebrow">SIMPLE · SECURE · SMART</p>
+      <h1>Banking that<br><span>works for you.</span></h1>
+      <p class="muted">Manage your demo account, review transactions and track your money in one place.</p>
+      <div class="auth-note">Student project demo only — do not use real banking credentials or money.</div>
+    </section>
+    <section class="auth-card">
+      <div class="auth-tabs">
+        <button class="tab active" data-auth="login">Sign in</button>
+        <button class="tab" data-auth="register">Create account</button>
+      </div>
+      <form id="loginForm" class="auth-form">
+        <h2>Welcome back</h2><p class="muted">Sign in to your SUB Bank demo.</p>
+        <label>Email address<input id="loginEmail" type="email" autocomplete="username" required placeholder="you@example.com"></label>
+        <label>Password<input id="loginPassword" type="password" autocomplete="current-password" required minlength="6" placeholder="At least 6 characters"></label>
+        <button class="primary full" type="submit">Sign in <span>→</span></button>
+        <p class="form-hint">New here? <button class="text-btn" type="button" data-switch="register">Create an account</button></p>
+      </form>
+      <form id="registerForm" class="auth-form hidden">
+        <h2>Create your account</h2><p class="muted">Set up a local demo profile.</p>
+        <label>Full name<input id="registerName" type="text" required maxlength="60" placeholder="Your name"></label>
+        <label>Email address<input id="registerEmail" type="email" required autocomplete="username" placeholder="you@example.com"></label>
+        <label>Password<input id="registerPassword" type="password" required minlength="6" autocomplete="new-password" placeholder="At least 6 characters"></label>
+        <label>Confirm password<input id="registerConfirm" type="password" required minlength="6" autocomplete="new-password" placeholder="Repeat password"></label>
+        <button class="primary full" type="submit">Create account <span>→</span></button>
+        <p class="form-hint">Already registered? <button class="text-btn" type="button" data-switch="login">Sign in</button></p>
+      </form>
+      <p id="authMessage" class="message" role="status"></p>
+    </section>
+  </div>
+
+  <div id="appView" class="app hidden">
+    <aside id="sidebar" class="sidebar">
+      <a href="#" class="brand"><span class="brand-logo small">S</span><span>SUB <b>Bank</b></span></a>
+      <div class="account-mini"><div class="avatar" id="sideAvatar">A</div><div><strong id="sideName">Aman Upadhyay</strong><small>Personal account</small></div></div>
+      <nav class="nav">
+        <button class="nav-link active" data-page="dashboard"><span>▦</span> Dashboard</button>
+        <button class="nav-link" data-page="transactions"><span>↔</span> Transactions</button>
+        <button class="nav-link" data-page="transfer"><span>⇄</span> Transfer money</button>
+        <button class="nav-link" data-page="profile"><span>♙</span> Profile</button>
+        <button class="nav-link" data-page="security"><span>♧</span> Security</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="demo-tag">DEMO MODE</div>
+        <button class="nav-link" id="themeBtn"><span>◐</span> Toggle theme</button>
+        <button class="nav-link logout" id="logoutBtn"><span>↪</span> Logout</button>
+        <small>© 2026 SUB Bank<br>Demo banking system</small>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button id="mobileMenu" class="icon-btn" aria-label="Open menu">☰</button>
+        <div><p class="eyebrow">PERSONAL BANKING</p><h1 id="pageTitle">Dashboard</h1></div>
+        <div class="top-right"><span class="status-pill"><i></i> Account active</span><div class="avatar" id="topAvatar">A</div></div>
+      </header>
+
+      <section id="page-dashboard" class="page">
+        <div class="welcome-row"><div><p class="muted">Welcome back,</p><h2 id="welcomeName">Aman 👋</h2><p class="muted">Here’s what’s happening with your demo account.</p></div><button class="secondary" data-go="transactions">View activity ↗</button></div>
+        <div class="stat-grid">
+          <article class="stat-card balance-card"><div class="stat-label">Available balance <span>◉</span></div><h2 id="balanceValue">₹ 25,000.00</h2><p>Demo account balance</p><div class="balance-decoration">₹</div></article>
+          <article class="stat-card"><div class="stat-label">Money received <span class="stat-icon green">↓</span></div><h2 id="receivedValue">₹ 0.00</h2><p class="muted">Total deposits</p></article>
+          <article class="stat-card"><div class="stat-label">Money sent <span class="stat-icon red">↑</span></div><h2 id="sentValue">₹ 0.00</h2><p class="muted">Withdrawals & transfers</p></article>
+        </div>
+        <div class="quick-grid">
+          <button class="quick-card" data-go="deposit"><span class="quick-icon purple">＋</span><span><b>Deposit money</b><small>Add demo funds</small></span><strong>→</strong></button>
+          <button class="quick-card" data-go="withdraw"><span class="quick-icon orange">−</span><span><b>Withdraw money</b><small>Take out demo funds</small></span><strong>→</strong></button>
+          <button class="quick-card" data-go="transfer"><span class="quick-icon blue">⇄</span><span><b>Transfer money</b><small>Send to another demo user</small></span><strong>→</strong></button>
+        </div>
+        <section class="panel">
+          <div class="panel-heading"><div><h3>Recent transactions</h3><p class="muted">Your latest account activity</p></div><button class="text-btn" data-go="transactions">See all →</button></div>
+          <div id="recentTransactions" class="transaction-list"></div>
+        </section>
+        <div class="notice">🔒 <b>Demo only:</b> This project stores demo data in this browser. It is not connected to a bank and must not be used for real financial transactions.</div>
+      </section>
+
+      <section id="page-transactions" class="page hidden">
+        <div class="panel">
+          <div class="panel-heading"><div><h3>Transaction history</h3><p class="muted">Search and filter your demo activity.</p></div><button id="exportBtn" class="secondary">Export CSV ↓</button></div>
+          <div class="filters"><input id="transactionSearch" type="search" placeholder="Search transactions..."><select id="transactionFilter"><option value="all">All types</option><option value="deposit">Deposits</option><option value="withdraw">Withdrawals</option><option value="transfer-in">Transfers received</option><option value="transfer-out">Transfers sent</option></select></div>
+          <div id="allTransactions" class="transaction-list"></div>
+        </div>
+      </section>
+
+      <section id="page-transfer" class="page hidden">
+        <div class="form-layout">
+          <div class="panel form-panel"><h3 id="moneyTitle">Transfer money</h3><p class="muted">This only updates demo balances stored in this browser.</p>
+            <form id="moneyForm">
+              <label id="recipientLabel">Recipient email<input id="recipientEmail" type="email" placeholder="friend@example.com"></label>
+              <label>Amount (₹)<input id="moneyAmount" type="number" min="1" max="1000000" step="0.01" required placeholder="0.00"></label>
+              <label>Note (optional)<input id="moneyNote" type="text" maxlength="100" placeholder="What is this for?"></label>
+              <button class="primary full" type="submit" id="moneySubmit">Confirm transfer →</button>
+              <p id="moneyMessage" class="message" role="status"></p>
+            </form>
+          </div>
+          <div class="panel tips-panel"><div class="tips-icon">ⓘ</div><h3>Before you continue</h3><p class="muted">Check the amount and transaction type carefully. This prototype does not connect to payment networks.</p><ul><li>Transfers require a recipient registered in this same browser.</li><li>Withdrawals cannot exceed your demo balance.</li><li>All changes are saved locally in your browser.</li></ul></div>
+        </div>
+      </section>
+
+      <section id="page-deposit" class="page hidden">
+        <div class="form-layout">
+          <div class="panel form-panel"><h3>Deposit money</h3><p class="muted">Add virtual funds to your demo account.</p>
+            <form id="depositForm"><label>Amount (₹)<input id="depositAmount" type="number" min="1" max="1000000" step="0.01" required placeholder="0.00"></label><label>Note (optional)<input id="depositNote" maxlength="100" placeholder="e.g. Demo deposit"></label><button class="primary full">Add demo funds →</button><p id="depositMessage" class="message" role="status"></p></form>
+          </div><div class="panel tips-panel"><div class="tips-icon">＋</div><h3>Demo deposit</h3><p class="muted">This action changes only the sample balance in this browser. It does not move real money.</p></div>
+        </div>
+      </section>
+
+      <section id="page-withdraw" class="page hidden">
+        <div class="form-layout">
+          <div class="panel form-panel"><h3>Withdraw money</h3><p class="muted">Remove virtual funds from your demo account.</p>
+            <form id="withdrawForm"><label>Amount (₹)<input id="withdrawAmount" type="number" min="1" max="1000000" step="0.01" required placeholder="0.00"></label><label>Note (optional)<input id="withdrawNote" maxlength="100" placeholder="e.g. Cash withdrawal"></label><button class="primary full">Withdraw demo funds →</button><p id="withdrawMessage" class="message" role="status"></p></form>
+          </div><div class="panel tips-panel"><div class="tips-icon">−</div><h3>Withdrawal rules</h3><p class="muted">You cannot withdraw more than your current demo balance. No ATM or real payment network is involved.</p></div>
+        </div>
+      </section>
+
+      <section id="page-profile" class="page hidden">
+        <div class="panel form-panel profile-panel"><div class="profile-header"><div class="avatar large" id="profileAvatar">A</div><div><h3 id="profileHeading">Account profile</h3><p class="muted">Manage your demo account details.</p></div></div>
+          <form id="profileForm"><label>Full name<input id="profileName" required maxlength="60"></label><label>Email address<input id="profileEmail" disabled></label><label>Account number<input id="profileAccount" disabled></label><button class="primary">Save profile</button><p id="profileMessage" class="message" role="status"></p></form>
+        </div>
+      </section>
+
+      <section id="page-security" class="page hidden">
+        <div class="panel"><div class="panel-heading"><div><h3>Security & privacy</h3><p class="muted">Understand how this demo handles your data.</p></div></div>
+          <div class="security-item"><span class="security-icon">✓</span><div><b>Local demo storage</b><p class="muted">Your account data is saved in this browser using localStorage.</p></div></div>
+          <div class="security-item"><span class="security-icon">!</span><div><b>Not production security</b><p class="muted">Client-side storage is not suitable for real banking, passwords, or sensitive financial data.</p></div></div>
+          <div class="security-item"><span class="security-icon">↻</span><div><b>Reset demo data</b><p class="muted">Delete all locally stored SUB Bank demo accounts and transactions from this browser.</p><button id="resetDataBtn" class="danger-btn">Reset all demo data</button></div></div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <div id="toast" class="toast" role="status"></div>
+  <script src="script.js"></script>
+</body>
+</html>
